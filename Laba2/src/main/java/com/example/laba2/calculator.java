@@ -34,7 +34,7 @@ public class calculator extends HttpServlet {
         double result = 0.0;
         if ("1".equals(formNumber)) {
             result = 3 * (Math.log(Math.abs(first / second))) +
-                    Math.sqrt(Math.cos(second) + Math.exp(fourth));
+                    Math.sqrt(Math.cos(third) + Math.exp(fourth));
         } else if ("2".equals(formNumber)) {
             result = 6 * Math.sin(Math.abs(2 * first)) *
                     Math.log(second) +
