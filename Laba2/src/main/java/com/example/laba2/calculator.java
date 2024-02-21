@@ -1,6 +1,5 @@
 package com.example.laba2;
 
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -10,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Objects;
 
 @WebServlet(name = "Calculator", value = "/calculator")
 public class calculator extends HttpServlet {
@@ -61,6 +59,18 @@ public class calculator extends HttpServlet {
         resp.addCookie(thirdParamCookie);
         resp.addCookie(fourthParamCookie);
 
+        Cookie[] cookies = req.getCookies();
+        String firstParamSaver = getCookieValue(cookies, "firstParam");
+        req.getSession().setAttribute("firstParamSaver", firstParamSaver);
+
+        String secondParamSaver = getCookieValue(cookies, "secondParam");
+        req.getSession().setAttribute("secondParamSaver", secondParamSaver);
+
+        String thirdParamSaver = getCookieValue(cookies, "thirdParam");
+        req.getSession().setAttribute("thirdParamSaver", thirdParamSaver);
+
+        String fourthParamSaver = getCookieValue(cookies, "fourthParam");
+        req.getSession().setAttribute("fourthParamSaver", fourthParamSaver);
 
         try(PrintWriter out = resp.getWriter()){
             out.println("<html>");
@@ -71,5 +81,16 @@ public class calculator extends HttpServlet {
             out.println("</html>");
         }
 
+    }
+
+    private String getCookieValue(Cookie[] cookies, String cookieName) {
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(cookieName)) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
     }
 }
