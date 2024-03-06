@@ -1,62 +1,89 @@
-<%@ page import="java.io.PrintWriter" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ page import="jakarta.servlet.http.Cookie" %>
-<%@ page import="jakarta.servlet.http.HttpServletRequest" %>
-<!DOCTYPE html>
+<%@ page import="java.util.*, jakarta.servlet.http.*" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Обчислення формули</title>
+    <title>Обчислення</title>
 </head>
 <body>
 
-<img src="images/first.jpg">
-<form id="calculationForm" action="calculator">
-    Початкове значення (first): <input type="text" name="first" value="0"><br>
-    Початкове значення ДО: <input type="text" name="firstTo" value="2"><br>
-    Початкове значення КРОК: <input type="text" name="firstStep" value="1"><br>
+<%
+    // Значення за замовчуванням
+    double start = 0, end = 11, step = 2;
+    String exampleType = "1";
 
-    <br>
+    // Перевірка, що запит був відправлений через POST
+    if ("POST".equalsIgnoreCase(request.getMethod())) {
+        // Отримання параметрів з запиту
+        start = Double.parseDouble(request.getParameter("start"));
+        end = Double.parseDouble(request.getParameter("end"));
+        step = Double.parseDouble(request.getParameter("step"));
+        exampleType = request.getParameter("exampleType");
+    }
 
-    Друге значення (second): <input type="text" name="second" value="0"><br>
-    Друге значення ДО: <input type="text" name="secondTo" value="2"><br>
-    Друге значення КРОК: <input type="text" name="secondStep" value="1"><br>
+    // Ініціалізація списку для збереження результатів
+    List<Double[]> results = new ArrayList<>();
 
-    <br>
+    // Обчислення і додавання результатів до списку
+    for (double i = start; i <= end; i += step) {
+        double first = i;
+        double second = i;
+        double third = i;
+        double fourth = i;
 
-    Третє значення (third): <input type="text" name="third" value="0"><br>
-    Третє значення ДО: <input type="text" name="thirdTo" value="2"><br>
-    Третє значення КРОК: <input type="text" name="thirdStep" value="1"><br>
+        double result1 = 3 * (Math.log(Math.abs(first / second))) + Math.sqrt(Math.cos(third) + Math.exp(fourth));
+        double result2 = 6 * Math.sin(Math.abs(2 * first)) * Math.log(second) +  Math.sqrt(third * Math.cosh(-1 * fourth));
+        double result3 = Math.pow(2 * Math.sin(first) + Math.cos(Math.abs(second)) * Math.sqrt(third), fourth);
 
-    <br>
+        Double[] resultsRow = {first, second, third, fourth, result1, result2, result3};
+        results.add(resultsRow);
+    }
+%>
 
-    Четверте значення (fourth): <input type="text" name="fourth" value="0"><br>
-    Четверте значення ДО: <input type="text" name="fourthTo" value="2"><br>
-    Четверте значення КРОК: <input type="text" name="fourthStep" value="1"><br>
-
-    <br>
-    <input type="button" onclick="calculate()" value="Обчислити">
+<form action="calculator" method="post">
+    Виберіть приклад:
+    <select name="exampleType">
+        <option value="1" <%= "1".equals(exampleType) ? "selected" : "" %>>Приклад 1</option>
+        <option value="2" <%= "2".equals(exampleType) ? "selected" : "" %>>Приклад 2</option>
+        <option value="3" <%= "3".equals(exampleType) ? "selected" : "" %>>Приклад 3</option>
+    </select><br>
+    Початкове значення: <input type="text" name="start" value="<%= start %>"><br>
+    Кінцеве значення: <input type="text" name="end" value="<%= end %>"><br>
+    Крок: <input type="text" name="step" value="<%= step %>"><br>
+    <input type="submit" value="Обчислити">
 </form>
 
-<div id="result"></div>
-
-<script>
-
-    function calculate() {
-        var form = document.getElementById("calculationForm");
-        var formData = new FormData(form);
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "calculate.jsp?" + new URLSearchParams(formData).toString(), true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                document.getElementById("result").innerHTML = xhr.responseText;
+<%
+    if (!results.isEmpty()) {
+%>
+<table border="1">
+    <tr>
+        <th>First</th>
+        <th>Second</th>
+        <th>Third</th>
+        <th>Fourth</th>
+        <th>Result 1</th>
+        <th>Result 2</th>
+        <th>Result 3</th>
+    </tr>
+    <%
+        for (Double[] row : results) {
+    %>
+    <tr>
+        <%
+            for (double cell : row) {
+        %>
+        <td><%= cell %></td>
+        <%
             }
-        };
-        xhr.send();
+        %>
+    </tr>
+    <%
+        }
+    %>
+</table>
+<%
     }
-</script>
+%>
 
 </body>
 </html>
