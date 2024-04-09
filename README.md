@@ -7,3 +7,4 @@
 # Лабораторна робота №5: https://docs.google.com/document/d/10n-amfepzx_4EQvwJffnCnDZZPYaFjCle932vGxvN8k/edit
 # Лабораторна робота №6: https://docs.google.com/document/d/17w2bxxrZZb2y1GvqfegBf-yCRrUOmMxBQds0rc2YwjY/edit
 # Лабораторна робота №7: https://docs.google.com/document/d/1f7dTGQEKai4AHh9RhhW_N88Ck-WANSBTTsmTtamoOUw/edit
+# Лабораторна робота №8: https://docs.google.com/document/d/1dIVpht8zV57P-w1P9YMa9bExlUXOBUXLXZ1HQwrm65U/edit
