@@ -11,3 +11,4 @@
 # Лабораторна робота №9: https://docs.google.com/document/d/1UAoNl-ESjjuj_PEKkjcVUscw5ojxCpykSPS6P4voGYk/edit
 # Лабораторна робота №10: https://docs.google.com/document/d/1b-46wPrMXk2a_-D4m7xhlWBCfgdqUkm_1wRmXd9zn8M/edit
 # Лабораторна робота №11: https://docs.google.com/document/d/1kquGcRQEW9HqCakTZ1U2v3KnjdPWKs2SOiWR7RED1lg/edit
+# Лабораторна робота №12: https://docs.google.com/document/d/1v73SYVl1ifOpYQgoZ0KY8Jk6xBkwIBCm-H1BtEpk12o/edit
